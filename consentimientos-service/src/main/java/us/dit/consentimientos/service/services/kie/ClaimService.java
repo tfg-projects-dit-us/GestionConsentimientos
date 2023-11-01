@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hl7.fhir.r5.model.Questionnaire;
@@ -67,6 +69,10 @@ public class ClaimService {
 		
 		
 		return wi;
+	}
+	
+	public void completeTask(HttpServletRequest request) {
+	   logger.info(request);
 	}
 	
 	/**
