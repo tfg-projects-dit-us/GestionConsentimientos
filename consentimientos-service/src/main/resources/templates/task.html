@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<!-- Ayuda con edición html https://www.w3schools.com/howto/default.asp -->
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="#{task.title}"></title>
+<link rel="stylesheet" href="/form-styles.css">
+</head>
+<body>
+<div th:include="navbar.html"></div>
+<p th:text="#{task.head}">Here is your task</p>
+<p th:text="${task}">task<p>
+</body>
+</html>
+
+

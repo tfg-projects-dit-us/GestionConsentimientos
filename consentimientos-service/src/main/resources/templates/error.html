@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<!-- Ayuda con edición html https://www.w3schools.com/howto/default.asp -->
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="/form-styles.css">
+<title th:text="#{error.title}"></title>
+</head>
+<body>
+<div th:include="navbar.html"></div>
+<p th:text="#{error.info}">Error Code</p>
+<p th:text="${status}">task<p>
+</body>
+</html>

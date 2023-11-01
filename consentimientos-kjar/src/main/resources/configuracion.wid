@@ -1,0 +1,15 @@
+[
+    [
+ 
+    "name" : "ConsentConfig", 
+    "parameters" : [ 
+        "principal" : new StringDataType()
+    ], 
+    "results" : [ 
+        "fhirbase" : new StringDataType() ,
+        "questionnaireId" : new StringDataType()
+    ], 
+    "displayName" : "Consent Config", 
+    "icon" : "" 
+  ]
+]

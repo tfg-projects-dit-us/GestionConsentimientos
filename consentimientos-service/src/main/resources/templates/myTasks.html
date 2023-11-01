@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!-- Ayuda con edición html https://www.w3schools.com/howto/default.asp -->
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="#{tasks.title}"></title>
+<link rel="stylesheet" href="/form-styles.css">
+</head>
+<body>
+<div th:include="navbar.html"></div>
+<p th:text="#{tasks.head}">Here is your task list</p>
+<table class="table" id="taskTable" style="margin-left: auto; margin-right: auto;">
+		<thead>
+			<tr>
+				<th scope="row" th:text="#{tasks.name}"></th>
+				<th scope="row" th:text="#{tasks.status}"></th>
+				<th scope="row" th:text="#{tasks.id}"></th>
+				<th scope="row" th:text="#{tasks.date}"></th>
+				<th scope="row" th:text="#{tasks.creator}"></th>
+				
+				
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="task : ${tasks}">
+				<td th:text="${task.name}">Error</td>
+				<td th:text="${task.status}">Error</td>
+				<td th:text="${task.id}">Error</td>
+				<td th:text="${task.createdOn}">Error</td>
+				<td th:text="${task.createdBy}">Error</td>				
+			</tr>
+		</tbody>
+		</table>
+</body>
+</html>
+

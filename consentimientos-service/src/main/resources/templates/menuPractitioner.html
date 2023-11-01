@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!-- Ayuda con edicion html https://www.w3schools.com/howto/default.asp -->
+<html>
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title th:text="#{practitioner.menu.title}">Options</title>
+	<link rel="stylesheet" href="/form-styles.css">
+</head>
+
+<body>
+	<div th:include="navbar.html"></div>
+
+	<p> <button class="button" onclick="location.href='/consentimientos/facultativo/solicitud'"
+			th:text="#{practitioner.menu.claim}">Claim</button></p>
+	<p> <button class="button" onclick="location.href='/consentimientos/facultativo/consulta'"
+			th:text="#{practitioner.menu.query}">Query</button></p>
+
+
+
+	</div>
+</body>
+
+</html>
