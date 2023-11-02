@@ -68,12 +68,13 @@ public class ClaimService {
 		logger.info("Creo cliente de procesos");
 		ProcessServicesClient processClient = kie.getProcessServicesClient();
 		logger.info("Llamo a findNodeInstances del cliente de procesos");
-		WorkItemInstance wi=processClient.getWorkItem(containerId, processId, (long) 1);
+		
+		WorkItemInstance wi=processClient.getWorkItemByProcessInstance(containerId, processId).get(0);
 		logger.info("WI: "+wi.toString());		
 		return wi;
 	}
 	
-	public void completeTask(Map<String, String[]> map,List<String> patientList,String title,Questionnaire questionnaire, WorkItemInstance wi,String principal) {
+	public void completeTask(Map<String, String[]> map,List<String> patientList,Questionnaire questionnaire, WorkItemInstance wi,String principal) {
 
 		// Mapeamos la respuesta del formulario a un recurso fhir QuestionnaireResponse
 		MapToQuestionnaireResponse mapToQuestionnaireResponse = new MapToQuestionnaireResponse(questionnaire);
@@ -86,8 +87,8 @@ public class ClaimService {
 		// Incluimos los parametros de salida de la tarea humana en un Map, en donde sus claves se corresponden con el nombre de la variable en la tarea
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("responseId", respId);
-		params.put("patientList", patientList);
-		params.put("title", title);
+		params.put("patients", patientList);
+	
 				
 		UserTaskServicesClient userClient = kie.getUserTaskServicesClient();
 		TaskInstance task = userClient.findTaskByWorkItemId(wi.getId());

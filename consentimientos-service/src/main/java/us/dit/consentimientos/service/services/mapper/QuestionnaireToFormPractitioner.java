@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hl7.fhir.r5.model.BooleanType;
 import org.hl7.fhir.r5.model.Questionnaire;
 import org.hl7.fhir.r5.model.QuestionnaireResponse;
@@ -17,7 +19,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class QuestionnaireToFormPractitioner implements IMapper<Questionnaire, String> {
-
+	private static final Logger logger = LogManager.getLogger();
 	@Override
 	public String map(Questionnaire in) {
 		String contentHtml = generateHtml(in);
@@ -61,6 +63,7 @@ public class QuestionnaireToFormPractitioner implements IMapper<Questionnaire, S
 				+ "<form action=\"/consentimientos/facultativo/solicitud\" method=\"post\">\r\n";
 		
 		for (Questionnaire.QuestionnaireItemComponent item : questionnaire.getItem()) {
+			logger.info("item del cuestionario "+item.toString()+" id "+item.getId());
 			String question = generateQuestion(item);
 			if (question != null) {
 				body = body	+ question;
@@ -103,7 +106,7 @@ public class QuestionnaireToFormPractitioner implements IMapper<Questionnaire, S
 		String nameGroup = item.getText() + ":";
 		String component = "<fieldset>\r\n"
 				+ "<legend>+" + nameGroup + "+</legend>\r\n";
-		
+		logger.info("item group id "+item.getId()+" nameGroup "+nameGroup);
 		for (Questionnaire.QuestionnaireItemComponent it : item.getItem()) {
 			switch (it.getType()) {
 			case STRING:
@@ -131,6 +134,7 @@ public class QuestionnaireToFormPractitioner implements IMapper<Questionnaire, S
 	private String createStringComponent(Questionnaire.QuestionnaireItemComponent item) {
 		String question = item.getText();
 		String id = item.getLinkId();
+		logger.info("item id "+id+" text "+question);
 		
 		String component = null;
 		
@@ -142,7 +146,7 @@ public class QuestionnaireToFormPractitioner implements IMapper<Questionnaire, S
 					+ "<input type=\"text\" id=\"" + id + "\" name=\"" + id + "\">\r\n";
 		}
 		
-		return component;
+		return component+"\r\n";
 	}
 	
 	private String createDateComponent(Questionnaire.QuestionnaireItemComponent item) {

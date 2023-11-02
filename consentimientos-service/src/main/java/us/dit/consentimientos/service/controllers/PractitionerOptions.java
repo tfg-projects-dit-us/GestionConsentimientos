@@ -28,9 +28,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import us.dit.consentimientos.service.services.kie.ClaimService;
 import us.dit.consentimientos.service.services.mapper.QuestionnaireToFormPractitioner;
 
-
-
-
 @Controller
 @RequestMapping("/consentimientos/facultativo")
 public class PractitionerOptions {
@@ -59,13 +56,9 @@ public class PractitionerOptions {
 		UserDetails principal = (UserDetails) auth.getPrincipal();
 		logger.info("Datos de usuario (principal)" + principal);
 		Long processId=claim.newInstance(principal.getUsername());
-		WorkItemInstance wi=null;
 		session.setAttribute("processId", processId);
 		Questionnaire questionnaire= claim.initTask(session);
-		logger.info("iw en el controlador ",wi);
-		
-		
-	    return mapper.map(questionnaire);
+		return mapper.map(questionnaire);
 		}
 	@PostMapping("/solicitud")
 	public String responseQuestionnairePractitioner(HttpServletRequest request,HttpSession session) {
@@ -75,17 +68,20 @@ public class PractitionerOptions {
 		UserDetails principal = (UserDetails) auth.getPrincipal();
 		// Obtenemos los campos rellenados del Meta-Cuestionario en un Map
 		Map<String, String[]> responseForm = request.getParameterMap();
+		logger.info("claves del mapa de parámetros recibidos "+responseForm.keySet().toString());
 		
 		// Obtenemos el titulo
-		String title = responseForm.get("1.1")[0];
+		//String title = responseForm.get("1.1")[0];
 				
 		// Obtenemos la lista de pacientes a los que va dirigido el consentimiento
-		String patients = responseForm.get("1.2")[0];
+		String patients = responseForm.get("1.1")[0];
+		logger.info("listado de pacientes como string "+ patients);
 		List<String> patientList = Arrays.asList(patients.split(";"));
+		logger.info("Pacientes a los que va destinado "+patientList);
 		// Borramos el campo correspondiente a los pacientes
 		responseForm = deleteFielsPatients(responseForm);
 		
-		claim.completeTask(responseForm,patientList,title,(Questionnaire) session.getAttribute("questionnaire"),(WorkItemInstance) session.getAttribute("wi"),principal.getUsername());		
+		claim.completeTask(responseForm,patientList,(Questionnaire) session.getAttribute("questionnaire"),(WorkItemInstance) session.getAttribute("wi"),principal.getUsername());		
 		redirect = "redirect:/consentimientos/facultativo?success";	
 		return redirect;
 	}
@@ -100,8 +96,7 @@ public class PractitionerOptions {
 			if (!(key.equals("1.2"))) {
 				result.put(key, values);
 			}
-		}
-		
+		}		
 		return result;
 	}
 	

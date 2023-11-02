@@ -9,19 +9,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <style>
-        .topbackground {
-            background-color: rgba(255, 255, 255, 0.5);
-            color: inherit;
-            width: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="/form-styles.css">
 </head>
 <body>
 <div class="topnav">
-  <a class="active" href="/">Home</a>
-  <a href="/consentimientos/tasks">Tasks</a>
-  <a href="/consentimientos/procesos/nuevoConsentimiento">nuevo consentimiento</a>
+  <a class="active" href="/" th:text="#{navbar.home}">Home</a>
+  <a href="/consentimientos/facultativo" th:text="#{navbar.practitioner}">Practitioner</a>
+  <a href="/consentimientos/patient" th:text="#{navbar.patient}">Patient</a>
+  <a href="/logout" th:text="#{navbar.logout}">Logout</a>
 </div>
 <div class="container">
     <nav class="navbar navbar-light bg-light">
@@ -42,7 +37,7 @@
     <div class="jumbotron" style="background-image: url('img/bgimage.png'); background-size: cover; color: #000000;">
         <div class="card topbackground">
             <p>
-            <h1 class="text-center"><strong>Bienvenido a GUARDIANES</strong></h1></p>
+            <h1 class="text-center"><strong>Bienvenido a CONSENTIMIENTOS</strong></h1></p>
             <p><h5 class="text-center"><strong>Aplicación de negocio iniciada correctamente
             <br/> capacidades disponibles:</strong></h5></p>
         </div>
