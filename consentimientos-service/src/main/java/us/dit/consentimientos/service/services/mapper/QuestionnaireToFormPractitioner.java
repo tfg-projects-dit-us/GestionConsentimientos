@@ -57,8 +57,8 @@ public class QuestionnaireToFormPractitioner implements IMapper<Questionnaire, S
 		
 		body = "<body>\r\n"
 				+"<div class=\"box\">\r\n"
-				+ "<h2>Meta-Questionnaire</h2>\r\n"
-				+ "<form action=\"/private/practitioner\" method=\"post\">\r\n";
+				+ "<h2>Meta-Questionnaire</h2>\r\n"				
+				+ "<form action=\"/consentimientos/facultativo/solicitud\" method=\"post\">\r\n";
 		
 		for (Questionnaire.QuestionnaireItemComponent item : questionnaire.getItem()) {
 			String question = generateQuestion(item);
@@ -67,7 +67,7 @@ public class QuestionnaireToFormPractitioner implements IMapper<Questionnaire, S
 			}
 		}
 		
-		body = body
+		body = body				
 				+ "<input type=\"submit\" value=\"Send\">\r\n"
 				+ "</form>\r\n"
 				+ "</div>\r\n"

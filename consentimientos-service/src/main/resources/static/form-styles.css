@@ -45,3 +45,11 @@ body {
   height:200px;
   width:200px;
 }
+.box {
+		max-width: 500px;
+		margin: 0 auto;
+		background-color: #ffffff;
+		padding: 20px;
+		border-radius: 5px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

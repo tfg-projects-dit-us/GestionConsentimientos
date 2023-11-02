@@ -1,5 +1,8 @@
 package us.dit.consentimientos.service.controllers;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +11,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hl7.fhir.r5.model.Questionnaire;
+import org.hl7.fhir.r5.model.QuestionnaireResponse;
+import org.kie.api.runtime.process.WorkItem;
+import org.kie.server.api.model.instance.WorkItemInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,8 +26,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import us.dit.consentimientos.service.services.kie.ClaimService;
-
 import us.dit.consentimientos.service.services.mapper.QuestionnaireToFormPractitioner;
+
+
+
 
 @Controller
 @RequestMapping("/consentimientos/facultativo")
@@ -51,20 +59,50 @@ public class PractitionerOptions {
 		UserDetails principal = (UserDetails) auth.getPrincipal();
 		logger.info("Datos de usuario (principal)" + principal);
 		Long processId=claim.newInstance(principal.getUsername());
-		Questionnaire questionnaire= claim.initTask(principal.getUsername(), processId);
+		WorkItemInstance wi=null;
+		session.setAttribute("processId", processId);
+		Questionnaire questionnaire= claim.initTask(session);
+		logger.info("iw en el controlador ",wi);
+		
 		
 	    return mapper.map(questionnaire);
 		}
 	@PostMapping("/solicitud")
-	public String responseQuestionnairePractitioner(HttpServletRequest request) {
+	public String responseQuestionnairePractitioner(HttpServletRequest request,HttpSession session) {
 		String redirect = null;
+		logger.info("Recibido formulario de solicitud");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		UserDetails principal = (UserDetails) auth.getPrincipal();
+		// Obtenemos los campos rellenados del Meta-Cuestionario en un Map
+		Map<String, String[]> responseForm = request.getParameterMap();
 		
-
+		// Obtenemos el titulo
+		String title = responseForm.get("1.1")[0];
+				
+		// Obtenemos la lista de pacientes a los que va dirigido el consentimiento
+		String patients = responseForm.get("1.2")[0];
+		List<String> patientList = Arrays.asList(patients.split(";"));
+		// Borramos el campo correspondiente a los pacientes
+		responseForm = deleteFielsPatients(responseForm);
 		
-		
-		redirect = "redirect:/consentimientos/facultativo?success";
-		
+		claim.completeTask(responseForm,patientList,title,(Questionnaire) session.getAttribute("questionnaire"),(WorkItemInstance) session.getAttribute("wi"),principal.getUsername());		
+		redirect = "redirect:/consentimientos/facultativo?success";	
 		return redirect;
+	}
+	
+	private Map<String, String[]> deleteFielsPatients(Map<String, String[]> response){
+		Map<String, String[]> result = new HashMap<String, String[]>();
+		
+		for (Map.Entry<String, String[]> entry : response.entrySet()) {
+			String key = entry.getKey();
+			String[] values = entry.getValue();
+			
+			if (!(key.equals("1.2"))) {
+				result.put(key, values);
+			}
+		}
+		
+		return result;
 	}
 	
 }
