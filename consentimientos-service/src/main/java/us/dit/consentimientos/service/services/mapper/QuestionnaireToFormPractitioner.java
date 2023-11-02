@@ -63,7 +63,7 @@ public class QuestionnaireToFormPractitioner implements IMapper<Questionnaire, S
 		for (Questionnaire.QuestionnaireItemComponent item : questionnaire.getItem()) {
 			String question = generateQuestion(item);
 			if (question != null) {
-				body = body + question;
+				body = body	+ question;
 			}
 		}
 		
