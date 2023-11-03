@@ -14,8 +14,8 @@ Está basado en el TFG disponible en https://github.com/josgarlin/GestorConsenti
 ## Generación
 Se han utilizado los arquetipos maven para la generación de los tres componentes (modelo, kjar y aplicación)
 
-*`mvn archetype:generate -B "-DarchetypeGroupId=org.kie" "-DarchetypeArtifactId=kie-model-archetype" "-DarchetypeVersion=7.74.1.Final" "-DgroupId=us.dit" "-DartifactId=consentimientos-model" "-Dversion=1.0-SNAPSHOT" "-Dpackage=us.dit.consentimientos.model"
+*`mvn archetype:generate -B "-DarchetypeGroupId=org.kie" "-DarchetypeArtifactId=kie-model-archetype" "-DarchetypeVersion=7.74.1.Final" "-DgroupId=us.dit" "-DartifactId=consentimientos-model" "-Dversion=1.0-SNAPSHOT" "-Dpackage=us.dit.consentimientos.model"`
 
-*mvn archetype:generate -B "-DarchetypeGroupId=org.kie" "-DarchetypeArtifactId=kie-kjar-archetype" "-DarchetypeVersion=7.74.1.Final" "-DgroupId=us.dit" "-DartifactId=consentimientos-kjar" "-Dversion=1.0-SNAPSHOT" "-Dpackage=us.dit.consentimientos"
+*`mvn archetype:generate -B "-DarchetypeGroupId=org.kie" "-DarchetypeArtifactId=kie-kjar-archetype" "-DarchetypeVersion=7.74.1.Final" "-DgroupId=us.dit" "-DartifactId=consentimientos-kjar" "-Dversion=1.0-SNAPSHOT" "-Dpackage=us.dit.consentimientos"`
 
-*mvn archetype:generate -B "-DarchetypeGroupId=org.kie" "-DarchetypeArtifactId=kie-service-spring-boot-archetype" "-DarchetypeVersion=7.74.1.Final" "-DgroupId=us.dit" "-DartifactId=consentimientos-service" "-Dversion=1.0-SNAPSHOT" "-Dpackage=us.dit.consentimientos.service" "-DappType=bpm"`
+*`mvn archetype:generate -B "-DarchetypeGroupId=org.kie" "-DarchetypeArtifactId=kie-service-spring-boot-archetype" "-DarchetypeVersion=7.74.1.Final" "-DgroupId=us.dit" "-DartifactId=consentimientos-service" "-Dversion=1.0-SNAPSHOT" "-Dpackage=us.dit.consentimientos.service" "-DappType=bpm"`
