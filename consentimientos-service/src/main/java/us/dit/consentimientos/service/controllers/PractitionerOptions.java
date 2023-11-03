@@ -74,7 +74,7 @@ public class PractitionerOptions {
 		//String title = responseForm.get("1.1")[0];
 				
 		// Obtenemos la lista de pacientes a los que va dirigido el consentimiento
-		String patients = responseForm.get("1.1")[0];
+		String patients = responseForm.get("patients")[0];
 		logger.info("listado de pacientes como string "+ patients);
 		List<String> patientList = Arrays.asList(patients.split(";"));
 		logger.info("Pacientes a los que va destinado "+patientList);
