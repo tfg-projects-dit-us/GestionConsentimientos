@@ -52,20 +52,24 @@ public class PractitionerOptions {
 		 * Pide questionnarie
 		 * Construye formulario
 		 */
+		logger.info("Iniciando una solicitud de consentimiento");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails principal = (UserDetails) auth.getPrincipal();
 		logger.info("Datos de usuario (principal)" + principal);
 		Long processId=claim.newInstance(principal.getUsername());
 		session.setAttribute("processId", processId);
 		Questionnaire questionnaire= claim.initTask(session);
+		logger.info("cuestionario en get /solicitud",(Questionnaire) session.getAttribute("questionnaire"));
 		return mapper.map(questionnaire);
 		}
 	@PostMapping("/solicitud")
 	public String responseQuestionnairePractitioner(HttpServletRequest request,HttpSession session) {
 		String redirect = null;
 		logger.info("Recibido formulario de solicitud");
+	
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails principal = (UserDetails) auth.getPrincipal();
+		logger.info("Datos de usuario (principal)" + principal);
 		// Obtenemos los campos rellenados del Meta-Cuestionario en un Map
 		Map<String, String[]> responseForm = request.getParameterMap();
 		logger.info("claves del mapa de parámetros recibidos "+responseForm.keySet().toString());
@@ -80,7 +84,7 @@ public class PractitionerOptions {
 		logger.info("Pacientes a los que va destinado "+patientList);
 		// Borramos el campo correspondiente a los pacientes
 		responseForm = deleteFielsPatients(responseForm);
-		
+		logger.info("cuestionario en post /solicitud",(Questionnaire) session.getAttribute("questionnaire"));
 		claim.completeTask(responseForm,patientList,(Questionnaire) session.getAttribute("questionnaire"),(WorkItemInstance) session.getAttribute("wi"),principal.getUsername());		
 		redirect = "redirect:/consentimientos/facultativo?success";	
 		return redirect;

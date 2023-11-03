@@ -13,6 +13,11 @@
         <type>java.lang.String</type>
       </config-item>
       <config-item>
+        <name>org.kie.server.user</name>
+        <value>consentimientos</value>
+        <type>java.lang.String</type>
+      </config-item>
+      <config-item>
         <name>org.kie.server.id</name>
         <value>consentimientos-service</value>
         <type>java.lang.String</type>
@@ -25,6 +30,11 @@
       <config-item>
         <name>org.kie.server.bypass.auth.user</name>
         <value>true</value>
+        <type>java.lang.String</type>
+      </config-item>
+      <config-item>
+        <name>org.kie.server.pwd</name>
+        <value>consentimientos</value>
         <type>java.lang.String</type>
       </config-item>
     </configItems>

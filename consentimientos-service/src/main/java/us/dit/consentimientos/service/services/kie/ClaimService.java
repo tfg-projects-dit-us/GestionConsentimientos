@@ -45,7 +45,7 @@ public class ClaimService {
 	
 	public Long newInstance(String principal) {
 		Map<String,Object> variables= new HashMap<String,Object>();
-        
+        logger.info("Entro en newInstance");
 	    variables.put("principal", principal);
 		ProcessServicesClient client = kie.getProcessServicesClient();
 		Long idInstanceProcess = client.startProcess(containerId, processId,variables);
@@ -116,8 +116,8 @@ public class ClaimService {
 	 * @return Una lista de TaskSummaries (con la información más relevante de las
 	 *         tareas asignadas al usuario
 	 */
-	public List<TaskSummary> findAll(String principal) {
-		logger.info("En findAll de TaskService con principal= "+principal);
+	public List<TaskSummary> findConsentsToReview(String principal) {
+		logger.info("En findConsentsToReview con principal= "+principal);
 
 		//KieUtilService kie = new KieUtil(URL,user, password);
 	
