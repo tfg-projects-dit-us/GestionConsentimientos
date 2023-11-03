@@ -29,7 +29,7 @@
 				<td th:text="${task.id}">Error</td>
 				<td th:text="${task.createdOn}">Error</td>
 				<td th:text="${task.createdBy}">Error</td>	
-				<td><button th:data-url="@{/consentimientos/paciente/pendientes/{id}(id=${task.id})}" onclick="window.open(this.getAttribute('data-url'))" th:text="#{tasks.select}">Review</button></td> 		
+				<td><button class="button" th:data-url="@{/consentimientos/paciente/pendientes/{id}(id=${task.id})}" onclick="window.open(this.getAttribute('data-url'))" th:text="#{tasks.select}">Review</button></td> 		
 			</tr>
 		</tbody>
 		</table>
