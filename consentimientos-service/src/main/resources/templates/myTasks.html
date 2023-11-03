@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Ayuda con edición html https://www.w3schools.com/howto/default.asp -->
+<!-- Ayuda con ediciï¿½n html https://www.w3schools.com/howto/default.asp -->
 <html>
 <head>
 <meta charset="ISO-8859-1">
@@ -17,6 +17,7 @@
 				<th scope="row" th:text="#{tasks.id}"></th>
 				<th scope="row" th:text="#{tasks.date}"></th>
 				<th scope="row" th:text="#{tasks.creator}"></th>
+				<th scope="row" th:text="#{tasks.select}"></th>
 				
 				
 			</tr>
@@ -27,7 +28,8 @@
 				<td th:text="${task.status}">Error</td>
 				<td th:text="${task.id}">Error</td>
 				<td th:text="${task.createdOn}">Error</td>
-				<td th:text="${task.createdBy}">Error</td>				
+				<td th:text="${task.createdBy}">Error</td>	
+				<td><button th:data-url="@{/consentimientos/paciente/pendientes/{id}(id=${task.id})}" onclick="window.open(this.getAttribute('data-url'))" th:text="#{tasks.select}">Review</button></td> 		
 			</tr>
 		</tbody>
 		</table>

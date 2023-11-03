@@ -31,7 +31,7 @@ import us.dit.consentimientos.service.services.mapper.MapToQuestionnaireResponse
  * ESTE SERVICIO DESAPARECERÁ, ES SÓLO PARA PRUEBAS
  */
 @Service
-public class ClaimService {
+public class ReviewService {
 
 	private static final Logger logger = LogManager.getLogger();
 
@@ -106,6 +106,87 @@ public class ClaimService {
 		// Asociamos los pacientes con la instancia de proceso correspondiente
 		pendingPatientProcess(patientList);
 		*/
-	}	
+	}
+	
+	/**
+	 * Busca todas las tareas de un usuario
+	 * 
+	 * @param user     El id del "actualOwner" de la tarea (ActorId en las variables
+	 *                 de entrada a la tarea)
+	 * @param password Password del usuario
+	 * @return Una lista de TaskSummaries (con la información más relevante de las
+	 *         tareas asignadas al usuario
+	 */
+	public List<TaskSummary> findConsentsToReview(String principal) {
+		logger.info("En findConsentsToReview con principal= "+principal);
+
+		//KieUtilService kie = new KieUtil(URL,user, password);
+	
+		List<TaskSummary> taskList = null;
+		List<TaskSummary> reservedRevisions = new ArrayList<TaskSummary>();
+
+		UserTaskServicesClient client = kie.getUserTaskServicesClient();
+		logger.info("Llamo a FINDTASKS de UserTaskServicesClient con principal= "+principal);
+		/**
+		 * Si no se pone la propiedad -Dorg.kie.server.bypass.auth.user=true
+		 * El método findTasks devuelve las tareas asignadas al usuario que está en el cliente (el que se usó al crearlo), no las asignadas al
+		 * usuario del argumento
+		 * Para que se considere las asignadas al usuario
+		 * "optional user id to be used instead of authenticated user - only when bypass authenticated user is enabled"
+		 * Es decir bypass authenticated tiene que ser true y eso lo hago en la línea de comandos, al ejecutar la aplicación
+		 */
+		taskList = client.findTasks(principal, 0, 0);
+		for(TaskSummary summary:taskList) {
+			logger.info("Tarea en estado "+summary.getStatus()+" y del proceso "+summary.getProcessId());
+			if(summary.getStatus().equals("Reserved") && summary.getProcessId().equals("consentimientos-kjar.revisionConsentimiento")) {
+				reservedRevisions.add(summary);		
+				logger.info("La incluye en la lista");
+			}
+						
+		}
+		//taskList=client.findTasksOwned(principal, null, null);
+		//Esta igual como hace query 'http://localhost:8090/rest/server/queries/tasks/instances/owners?user=user&page=null&pageSize=null&sort=&sortOrder=true no va bien
+		//taskList = client.findTasksByVariableAndValue(principal, "actualowner_id", principal, null, null, null);
+		/**
+		 * Esta llamada crea la invocación
+		 * http://localhost:8090/rest/server/queries/tasks/instances/variables/actualowner_id?page=null&pageSize=null&sort=&sortOrder=true&varValue=valordeprincipal'
+		 * Que da error "not found"
+		 */
+		/**
+		taskList=client.findTasksOwned(principal, null, null);
+		Y esta
+		'http://localhost:8090/rest/server/queries/tasks/instances/owners?page=null&pageSize=null&sort=&sortOrder=true'
+		Mismo error
+		**/
+	
+		for (TaskSummary task : reservedRevisions) {
+			System.out.println("Tarea: " + task);
+		}
+		logger.info("Termino findTasks");
+		return reservedRevisions;
+	}
+	/**
+	 * Devuelve una instancia de tarea (TaskInstance) a partir del identificador de
+	 * la tarea
+	 * 
+	 * @param user
+	 * @param password
+	 * @param taskId
+	 * @return Instancia de la tarea indicada en el argumento de entrada taskId
+	 */
+	public TaskInstance findById(Long taskId) {
+		logger.info("En findAll de TaskService");
+
+		TaskInstance task = null;
+
+		logger.info("el kieUTIL creado ok");
+		UserTaskServicesClient client = kie.getUserTaskServicesClient();
+		logger.info("Llamo a findTaskById de UserTaskServicesClient");
+		task = client.findTaskById(taskId);
+		logger.info("Termino findTaskById");
+
+		return task;
+	}
+
 
 }
