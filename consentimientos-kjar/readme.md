@@ -7,13 +7,13 @@ Se ha creado con el arquetipo mvn
 
 Posteriormente se ha convertido en un repositorio git usando:
 
-_git init
+`git init
 
 git branch -m master
 
 git add .
 
-git commit -m "version inicial"_
+git commit -m "version inicial"`
 
 En todos los repositorios kjar la rama principal tiene que llamarse master
 
@@ -23,6 +23,6 @@ En BC se crea el repositorio y este se debe añadir como origen del local, para 
 
 Para ello:
 
- _ git remote add origin http://localhost:8080/business-central/git/Consentimeintos/consentimientos-kjar
+ `git remote add origin http://localhost:8080/business-central/git/Consentimeintos/consentimientos-kjar
 
- git pull origin master_
+ git pull origin master`
