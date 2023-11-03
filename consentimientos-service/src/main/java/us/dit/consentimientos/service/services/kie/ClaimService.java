@@ -1,6 +1,7 @@
 package us.dit.consentimientos.service.services.kie;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -122,6 +123,7 @@ public class ClaimService {
 		//KieUtilService kie = new KieUtil(URL,user, password);
 	
 		List<TaskSummary> taskList = null;
+		List<TaskSummary> reservedRevisions = new ArrayList<TaskSummary>();
 
 		UserTaskServicesClient client = kie.getUserTaskServicesClient();
 		logger.info("Llamo a FINDTASKS de UserTaskServicesClient con principal= "+principal);
@@ -134,6 +136,14 @@ public class ClaimService {
 		 * Es decir bypass authenticated tiene que ser true y eso lo hago en la línea de comandos, al ejecutar la aplicación
 		 */
 		taskList = client.findTasks(principal, 0, 0);
+		for(TaskSummary summary:taskList) {
+			logger.info("Tarea en estado "+summary.getStatus()+" y del proceso "+summary.getProcessId());
+			if(summary.getStatus().equals("Reserved") && summary.getProcessId().equals("consentimientos-kjar.revisionConsentimiento")) {
+				reservedRevisions.add(summary);		
+				logger.info("La incluye en la lista");
+			}
+						
+		}
 		//taskList=client.findTasksOwned(principal, null, null);
 		//Esta igual como hace query 'http://localhost:8090/rest/server/queries/tasks/instances/owners?user=user&page=null&pageSize=null&sort=&sortOrder=true no va bien
 		//taskList = client.findTasksByVariableAndValue(principal, "actualowner_id", principal, null, null, null);
@@ -148,11 +158,12 @@ public class ClaimService {
 		'http://localhost:8090/rest/server/queries/tasks/instances/owners?page=null&pageSize=null&sort=&sortOrder=true'
 		Mismo error
 		**/
-		logger.info("Termino findTasks");
-		for (TaskSummary task : taskList) {
+	
+		for (TaskSummary task : reservedRevisions) {
 			System.out.println("Tarea: " + task);
 		}
-		return taskList;
+		logger.info("Termino findTasks");
+		return reservedRevisions;
 	}
 
 }
