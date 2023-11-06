@@ -61,7 +61,7 @@ public class PatientOptions {
 	
 	@GetMapping("/pendientes/{taskId}")
 	//public String getTaskById(@PathVariable Long taskId, Model model) {
-	public String getTaskById(@PathVariable Long taskId,HttpSession session) {
+	public String getTaskById(@PathVariable Long taskId,HttpSession session,Model model) {
 		logger.info("buscando la tarea " + taskId);
 		TaskInstance task;
 	
@@ -80,9 +80,9 @@ public class PatientOptions {
 		//Map<String, Object> taskInputData = task.getInputData();
 		logger.info("Tarea localizada " + task);
 		//logger.info("Datos de entrada"+taskInputData);
-		//model.addAttribute("task", task);
-		//return "task";
-		return "return";
+		model.addAttribute("task", task);
+		return "task";
+		//return "return";
 		
 	}
 }
