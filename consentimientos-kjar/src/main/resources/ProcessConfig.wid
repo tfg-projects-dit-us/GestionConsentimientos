@@ -1,0 +1,14 @@
+[
+  [
+    "name" : "ProcessConfig", 
+    "parameters" : [ 
+        "processName" : new StringDataType()
+    ], 
+    "results" : [ 
+        "fhirbase" : new StringDataType(), 
+        "questionnaireId" : new StringDataType()  
+    ], 
+    "displayName" : "Process configuration", 
+    "icon" : "" 
+  ]
+]

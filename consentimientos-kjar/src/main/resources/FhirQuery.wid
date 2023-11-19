@@ -1,0 +1,15 @@
+[
+  [
+    "name" : "FhirQuery", 
+    "parameters" : [ 
+        "fhirbase" : new StringDataType(), 
+        "resourceType" : new StringDataType(), 
+        "queryParams" : new ObjectDataType("java.util.Map") 
+    ], 
+    "results" : [ 
+        "resourcesLinks" : new ObjectDataType("java.util.List") 
+    ], 
+    "displayName" : "Fhir Query", 
+    "icon" : "fhir.png"
+  ]
+]
