@@ -17,4 +17,4 @@ Pero posteriormente se han hecho los siguientes cambios a la configuración por 
 * application.properties está preparado para usar postgres como bbdd por defecto (se ha manenido el original como BU)
 * Debe estar creada la BBDD y el usuario en el servidor postgres y después ejecutar (base de datos consentimientos, usuario jbpm). Pero se puede cambiar la configuración de base de datos en el fichero de propiedades
 * En windows ejecutar .\launch.bat clean install -Ppostgres
-* Sólo la opción para instalación local de launch.bat (windows) está bien configurada, en las demás habría que incluir las variables adecuadas en el comando de ejecución
+* Se ha añadido una clase de configuración para configurar las variables del sistema para la configuración del servidor kie. Es necesario añadir en application.properties la variable con el prefijo system.properties
