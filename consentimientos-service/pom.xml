@@ -80,11 +80,10 @@
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <version>2.5.15</version>
+      <artifactId>spring-boot-starter-test</artifactId>    
       <scope>test</scope>
     </dependency>
-<!--  AÑADIDO POR MI  -->
+<!--  Aï¿½ADIDO POR MI  -->
 <dependency>
 <groupId>org.springframework.boot</groupId>
 <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -108,7 +107,11 @@
 <artifactId>hapi-fhir-client</artifactId>
 <version>${hapifhir.version}</version>
 </dependency>
-
+  	<dependency>
+  		<groupId>org.springframework.boot</groupId>
+  		<artifactId>spring-boot-configuration-processor</artifactId>
+  		<optional>true</optional>
+  	</dependency>
   </dependencies>
   <build>
     <plugins>
