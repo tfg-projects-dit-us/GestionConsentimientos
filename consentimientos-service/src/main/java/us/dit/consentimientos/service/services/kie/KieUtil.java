@@ -1,7 +1,12 @@
 package us.dit.consentimientos.service.services.kie;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jbpm.services.api.DeploymentService;
+import org.kie.api.runtime.manager.RuntimeManager;
 import org.kie.server.api.marshalling.MarshallingFormat;
 import org.kie.server.client.KieServicesClient;
 import org.kie.server.client.KieServicesConfiguration;
@@ -11,6 +16,9 @@ import org.kie.server.client.QueryServicesClient;
 import org.kie.server.client.UIServicesClient;
 import org.kie.server.client.UserTaskServicesClient;
 import org.kie.server.client.admin.UserTaskAdminServicesClient;
+import org.jbpm.services.api.model.DeployedUnit;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -30,14 +38,15 @@ public class KieUtil implements KieUtilService {
 	private String USERNAME;
 	@Value("${org.kie.server.pwd}")
 	private String PASSWORD;
+	@Autowired
+	private DeploymentService deploymentService;
+
 	private static final Logger logger = LogManager.getLogger();
-	
-	
 
 	private KieServicesConfiguration config;
-	
+
 	public KieUtil() {
-		logger.info("Creando el kieutil con los valores por defecto user "+ USERNAME + "pwd: "+PASSWORD);
+		logger.info("Creando el kieutil con los valores por defecto user " + USERNAME + "pwd: " + PASSWORD);
 	}
 
 	@Override
@@ -53,7 +62,7 @@ public class KieUtil implements KieUtilService {
 	public UserTaskServicesClient getUserTaskServicesClient() {
 		logger.info("ENTRANDO EN USERTASKSERVICE");
 		KieServicesClient kieServicesClient = getKieServicesClient();
-		
+
 		UserTaskServicesClient userClient = kieServicesClient.getServicesClient(UserTaskServicesClient.class);
 		logger.info("Se ha obtenido el cliente para la gestión de tareas");
 		return userClient;
@@ -74,7 +83,7 @@ public class KieUtil implements KieUtilService {
 
 		return client;
 	}
-	
+
 	@Override
 	public UIServicesClient getUIServicesClient() {
 		KieServicesClient kieServicesClient = getKieServicesClient();
@@ -90,6 +99,21 @@ public class KieUtil implements KieUtilService {
 		config.setMarshallingFormat(MarshallingFormat.JSON);
 
 		return KieServicesFactory.newKieServicesClient(config);
+	}
+
+	public void sendSignal(String type, Object event) {
+		/**
+		 * lista de todos los RuntimeManagers disponibles
+		 */
+		Collection<RuntimeManager> managers = new ArrayList<RuntimeManager>();
+		Collection<DeployedUnit> deployed = deploymentService.getDeployedUnits();
+		
+		for(DeployedUnit unit:deployed) {
+			managers.add(unit.getRuntimeManager());
+			unit.getRuntimeManager().signalEvent(type,event);
+		}
+
+
 	}
 
 }

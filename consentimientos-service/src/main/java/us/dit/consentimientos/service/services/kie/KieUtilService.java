@@ -17,5 +17,12 @@ public interface KieUtilService {
 	UIServicesClient getUIServicesClient();
 
 	UserTaskAdminServicesClient getUserTaskAdminServicesClient();
+	
+	/**
+	 * Difunde una señal en todos los RuntimeManagers
+	 * @param type nombre de la señal
+	 * @param event mensaje que acompaña la señal
+	 */
+	void sendSignal(String type, Object event);
 
 }
