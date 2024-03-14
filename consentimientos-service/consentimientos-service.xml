@@ -41,6 +41,36 @@
   </configuration>
   <containers>
     <container>
+      <containerId>human-tasks-management-kjar-1.0.0-SNAPSHOT</containerId>
+      <releaseId>
+        <groupId>us.dit</groupId>
+        <artifactId>human-tasks-management-kjar</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+      </releaseId>
+      <status>STARTED</status>
+      <scanner>
+        <status>STOPPED</status>
+      </scanner>
+      <configItems/>
+      <messages/>
+      <containerAlias>human-tasks-management</containerAlias>
+    </container>
+    <container>
+      <containerId>signals-samples-kjar-1.0-SNAPSHOT</containerId>
+      <releaseId>
+        <groupId>us.dit</groupId>
+        <artifactId>signals-samples-kjar</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </releaseId>
+      <status>STARTED</status>
+      <scanner>
+        <status>STOPPED</status>
+      </scanner>
+      <configItems/>
+      <messages/>
+      <containerAlias>signals-samples-kjar</containerAlias>
+    </container>
+    <container>
       <containerId>consentimientos-kjar-1_0-SNAPSHOT</containerId>
       <releaseId>
         <groupId>us.dit</groupId>
