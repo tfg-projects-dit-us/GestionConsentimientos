@@ -1,10 +1,12 @@
 # Proyecto Consentimientos
 Este proyecto es una aplicación de negocios jBPM con Spring Boot
+*Para obtener todos los módulos será necesario clonar de forma recursiva
+_git clone --recursive https://github.com/tfg-projects-dit-us/GestionConsentimientos_
 
 Está basado en el TFG disponible en https://github.com/josgarlin/GestorConsentimientos
 
 ## Módulos
-1. kjar: base de conocimiento kie, procesos, reglas de negocio, etc...
+1. kjar: bases de conocimiento kie, procesos, reglas de negocio, etc.... Están en repositorios externos configurados en este como submódulos.
 2. service: la aplicación
 3. model: POJOs compartidos entre kjar y service
 ## Dependencias
