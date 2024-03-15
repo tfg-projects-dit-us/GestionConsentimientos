@@ -4,3 +4,6 @@
 [submodule "signals-samples-kjar"]
 	path = signals-samples-kjar
 	url = https://github.com/tfg-projects-dit-us/signals-samples-kjar
+[submodule "consentimientos-kjar"]
+	path = consentimientos-kjar
+	url = https://github.com/tfg-projects-dit-us/consentimientos-kjar
