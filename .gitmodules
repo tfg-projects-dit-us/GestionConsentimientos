@@ -1,0 +1,9 @@
+[submodule "human-tasks-management-kjar"]
+	path = human-tasks-management-kjar
+	url = https://github.com/tfg-projects-dit-us/human-tasks-management-kjar
+[submodule "signals-samples-kjar"]
+	path = signals-samples-kjar
+	url = https://github.com/tfg-projects-dit-us/signals-samples-kjar
+[submodule "consentimientos-kjar"]
+	path = consentimientos-kjar
+	url = https://github.com/tfg-projects-dit-us/consentimientos-kjar

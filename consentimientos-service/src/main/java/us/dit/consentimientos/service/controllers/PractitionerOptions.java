@@ -26,15 +26,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import us.dit.consentimientos.service.services.kie.ClaimService;
+import us.dit.consentimientos.service.services.kie.KieUtilService;
 import us.dit.consentimientos.service.services.mapper.QuestionnaireToFormPractitioner;
 
 @Controller
 @RequestMapping("/consentimientos/facultativo")
 public class PractitionerOptions {
-	private static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = LogManager.getLogger();	
 
 	@Autowired
 	private ClaimService claim;
+	
+	@Autowired
+	private KieUtilService kie;
 	
 	@Autowired
 	private QuestionnaireToFormPractitioner mapper;
@@ -43,6 +47,7 @@ public class PractitionerOptions {
 	public String menu() {
     return "menuPractitioner";
 	}
+	
 	@GetMapping("/solicitud")
 	@ResponseBody
 	public String initClaim(HttpSession session) {
@@ -89,6 +94,7 @@ public class PractitionerOptions {
 		redirect = "redirect:/consentimientos/facultativo?success";	
 		return redirect;
 	}
+	
 	
 	private Map<String, String[]> deleteFielsPatients(Map<String, String[]> response){
 		Map<String, String[]> result = new HashMap<String, String[]>();
