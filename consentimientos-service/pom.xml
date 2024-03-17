@@ -44,6 +44,12 @@
 			<artifactId>kie-server-spring-boot-starter</artifactId>
 			<version>${version.org.kie}</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.drools/drools-model-compiler -->
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-model-compiler</artifactId>
+			<version>${version.org.kie}</version>
+		</dependency>
 
 		<!-- Swagger -->
 		<dependency>
@@ -84,6 +90,16 @@
 			<scope>test</scope>
 		</dependency>
 		<!--  A�ADIDO POR MI  -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-artemis</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-workitems-jms</artifactId>
+			<version>${version.org.kie}</version>
+		</dependency>
 		<dependency>
 			<groupId>us.dit</groupId>
 			<artifactId>consentimientos-model</artifactId>
