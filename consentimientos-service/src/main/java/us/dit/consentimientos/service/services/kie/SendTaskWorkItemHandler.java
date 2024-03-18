@@ -15,7 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jbpm.process.workitem.core.AbstractLogOrThrowWorkItemHandler;
 
-@Component("ExternalSendTask")
+@Component("External Send Task")
 public class SendTaskWorkItemHandler extends AbstractLogOrThrowWorkItemHandler implements Cacheable {
 	@Autowired
 	private KieUtilService kie;

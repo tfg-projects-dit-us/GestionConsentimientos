@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 /**
  * Ejemplo de un observador de procesos
  */
-@Component
+//@Component
 public class ObservadorDeProceso  implements ProcessEventListener {	
 	private static final Logger logger = LogManager.getLogger();
 	    @Override
